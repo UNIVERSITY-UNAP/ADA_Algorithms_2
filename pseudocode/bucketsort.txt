@@ -1,0 +1,10 @@
+Bucket-Sort(A)
+	let B[0...n-1] sea un nuevo arreglo
+	n = A.length
+	for i = 0 to n - 1
+		make B[i] an empty list
+	for i = 1 to n
+		insert A[i] into list B[nA[i]//1]
+	for i = 0 to n - 1
+		ordena lista B[i] con Insertion-Sort
+	concatenar las listas B[0],B[1],...,B[n-1] juntos en orden

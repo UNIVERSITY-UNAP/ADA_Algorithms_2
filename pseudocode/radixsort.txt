@@ -1,0 +1,4 @@
+Radix-Sort(A, d)
+	for i = 1 to d
+		use una ordenación estable para ordenar
+		el arreglo A en el dígito i

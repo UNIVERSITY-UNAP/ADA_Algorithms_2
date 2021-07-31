@@ -1,0 +1,76 @@
+execute in
+https://algorithm-visualizer.org/divide-and-conquer/counting-sort
+// import visualization libraries {
+const { Tracer, Array1DTracer, Randomize, Layout, VerticalLayout } = require('algorithm-visualizer');
+// }
+
+// define tracer variables {
+const arrayTracer = new Array1DTracer('A');
+const countsTracer = new Array1DTracer('C');
+const sortedArrayTracer = new Array1DTracer('B');
+Layout.setRoot(new VerticalLayout([arrayTracer, countsTracer, sortedArrayTracer]));
+// }
+
+function counting_sort_omms(A, B, k){
+  const n = A.length;
+  const C = new Array(k + 1).fill(0);
+  // visualize {
+  arrayTracer.set(A);
+  Tracer.delay();
+  sortedArrayTracer.set(B);
+  countsTracer.set(C);
+  Tracer.delay();
+  // }
+
+  for (let i = 0; i < n; i++) {
+    C[A[i]]++;
+    // visualize {
+    const number = A[i];
+    arrayTracer.select(i);
+    countsTracer.patch(number, C[number]);
+    Tracer.delay();
+    countsTracer.depatch(number);
+    arrayTracer.deselect(i);
+    // }
+  }
+
+  for (let i = 1; i <= k; i++) {
+    C[i] += C[i - 1];
+    // visualize {
+    countsTracer;
+    countsTracer.select(i - 1);
+    countsTracer.patch(i, C[i]);
+    Tracer.delay();
+    countsTracer.depatch(i);
+    countsTracer.deselect(i - 1);
+    // }
+  }
+
+  for (let i = n - 1; i >= 0; i--) {
+    const count = C[A[i]];
+    B[count - 1] = A[i];
+    C[A[i]]--;
+    // visualize {
+    const number = A[i];
+    arrayTracer.select(i);
+    countsTracer.select(number);
+    sortedArrayTracer.patch(count - 1, B[count - 1]);
+    countsTracer.patch(number, C[number]);
+    Tracer.delay();
+    sortedArrayTracer.depatch(count - 1);
+    countsTracer.depatch(number);
+    countsTracer.deselect(number);
+    arrayTracer.deselect(i);
+    // }
+  }
+}
+
+const array = [6,0,2,0,1,3,4,6,1,3,2,100];
+const sorted = new Array(array.length);
+const max = Math.max(...array);
+
+counting_sort_omms(array,sorted,max);
+
+
+
+

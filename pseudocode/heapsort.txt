@@ -1,0 +1,25 @@
+left(i)
+	return 2i
+right(i)
+	return 2i+1
+Heapify(A, i)
+	l = left(i)
+	r = right(i)
+	if l<=A.heapsize and A[l] > A[i]
+		largest = l
+	else largest = i 
+	if r<=A.heapsize and A[r] > A[largest]
+		largest = r
+	if largest != i
+		exchange A[i] with A[largest]
+		Heapify(A, largest)
+BuildHeap(A)
+	A.heapsize = A.length
+	for i = A.length/2 downto 1
+		Heapify(A, i)
+Heapsort(A) 
+	BuildHeap(A)
+	for i = A.length downto 2
+		exchange A[1] with A[i]
+		A.heapsize = A.heapsize -1
+		Heapify(A, 1)
